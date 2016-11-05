@@ -38,7 +38,7 @@ const Form = React.createClass({
   },
   putDoc (e) {
     const doc = clone(this.state.doc)
-    doc._id = new Date().toISOString()
+    doc._id = !doc._id ? new Date().toISOString() : doc._id
     doc.type = 'content'
     this.props.route.put(doc)
       .then(res => {

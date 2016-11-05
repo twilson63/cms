@@ -21,6 +21,7 @@ const DocumentIndex = React.createClass({
         <main>
           <header>
             <Link to="/new">Add New</Link>
+            <a href="#" onClick={this.props.route.auth.logout}>Logout</a>
             <h3>Documents</h3>
           </header>
           <ul className="list">
