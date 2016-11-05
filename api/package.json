@@ -1,0 +1,21 @@
+{
+    "name": "api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "micro index.js"
+    },
+    "keywords": [],
+    "author": "Tom",
+    "license": "ISC",
+    "dependencies": {
+        "dotenv": "^2.0.0",
+        "micro": "^6.1.0",
+        "pouchdb-http": "^6.0.2",
+        "pouchdb-mapreduce": "^6.0.7",
+        "pouchdb-upsert": "^2.0.2",
+        "ramda": "^0.22.1"
+    }
+}
