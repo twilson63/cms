@@ -18,20 +18,29 @@ const DocumentIndex = React.createClass({
         <header>
           <h1>Content Managment System</h1>
         </header>
-        <main>
+        <main className="mw6 center">
           <header>
-            <Link to="/new">Add New</Link>
-            <a href="#" onClick={this.props.route.auth.logout}>Logout</a>
+            <div className="cf">
+              <div className="fr">
+                <Link to="/new" className="f6 link dim br2 ph3 pv2 mb2 dib white bg-dark-blue">Add New</Link>
+                <a href="#"
+                  className="ml2 f6 link dim br2 ba ph3 pv2 mb2 dib black"
+                  onClick={this.props.route.auth.logout}>
+                  Logout
+                </a>
+              </div>
+            </div>
             <h3>Documents</h3>
           </header>
-          <ul className="list">
-            { this.state.docs.map(doc =>
-              <li key={doc._id}>
-                <Link className="link" to={`/${doc._id}`}>{doc.name}</Link>
-              </li>
+          { this.state.docs.map(doc =>
+            <article className="dt dim w-100 bb b--black-05 pb2 mt2 " key={doc._id}>
+              <Link className="dtc v-mid pl3 link" to={`/${doc._id}`}>
+                <h3 className="f3 near-black">{doc.name}</h3>
+                <p className="black-50">{doc.description}</p>
+              </Link>
+            </article>
 
-            )}
-          </ul>
+          )}
         </main>
       </div>
     )
