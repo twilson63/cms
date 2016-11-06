@@ -18,33 +18,39 @@ const auth = new AuthService(
   process.env.REACT_APP_AUTH0_DOMAIN
 )
 
+// only sync once per app cycle
+var synced = false
+const sync = _ => {
+  if (!synced) {
+    synced = true
+    PouchDB.sync(db, process.env.REACT_APP_DB, {
+      live: true,
+      retry: true,
+      ajax: {
+        headers: {
+          'Authorization': 'Bearer ' + auth.getToken()
+        }
+      }
+    })
+  }
+}
+
 const requireAuth = (nextState, replace) => {
   if (!auth.loggedIn()) {
     replace({ pathname: '/login' })
+  } else {
+    sync()
   }
 }
+
 const redirect = (nextState, replace) => {
   if (auth.loggedIn()) {
     replace({ pathname: '/'})
   }
 }
 
-const sync = _ => {
-  PouchDB.sync(db, process.env.REACT_APP_DB, {
-    live: true,
-    retry: true,
-    ajax: {
-      headers: {
-        'Authorization': 'Bearer ' + auth.getToken()
-      }
-    }
-  })
-}
-
 const App = React.createClass({
   getInitialState() {
-    console.log('init')
-    if (auth.loggedIn()) { sync() }
     return {
       all: _ => db.allDocs({include_docs: true}),
       get: id => db.get(id),
